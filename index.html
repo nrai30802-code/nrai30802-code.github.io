@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neha Rai | Data Analyst Portfolio</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Portfolio of Neha Rai, an aspiring Data Analyst and MCA student. Specializing in Python, SQL, Excel, Power BI, and Tableau to turn raw data into insights.">
+    <meta name="keywords" content="Neha Rai, Data Analyst, Portfolio, Python, SQL, Power BI, Tableau, MCA, NIET, Greater Noida, Data Analysis, Dashboard, Excel, Entry-level Data Analyst, Internships">
+    <meta name="author" content="Neha Rai">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Neha Rai | Data Analyst Portfolio">
+    <meta property="og:description" content="Aspiring Data Analyst turning raw data into meaningful insights using Python, SQL, Power BI, and Tableau. View my projects and certifications.">
+    <meta property="og:image" content="assets/images/neha_profile.jpg">
+    <meta property="og:url" content="https://nrai30802-code.github.io">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Neha Rai | Data Analyst Portfolio">
+    <meta property="twitter:description" content="Aspiring Data Analyst turning raw data into meaningful insights using Python, SQL, Power BI, and Tableau. View my projects and certifications.">
+    <meta property="twitter:image" content="assets/images/neha_profile.jpg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons (Font Awesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- AOS CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" integrity="sha512-1cK78a1o+vp/EB70yb7tYYgGVGPPCGnyVJ56WXAlIyl58DS1EQLLnlXZc69UVguXji5ffaLMCGigYGCUMs56gw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div id="preloader" class="preloader">
+        <div class="loader-content">
+            <div class="loader-spinner"></div>
+            <div class="loader-text">Loading Insights...</div>
+        </div>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="navbar-header" id="navbar-header">
+        <div class="navbar-container container">
+            <a href="#home" class="logo" id="nav-logo">
+                <span class="logo-accent">&lt;</span>NehaRai<span class="logo-accent"> /&gt;</span>
+            </a>
+            
+            <nav class="nav-menu" id="nav-menu">
+                <ul class="nav-list">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#about" class="nav-link">About</a></li>
+                    <li><a href="#skills" class="nav-link">Skills</a></li>
+                    <li><a href="#projects" class="nav-link">Projects</a></li>
+                    <li><a href="#certifications" class="nav-link">Certifications</a></li>
+                    <li><a href="#education" class="nav-link">Education</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <!-- Light/Dark Mode Switcher -->
+                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+                    <i class="fa-solid fa-moon moon-icon"></i>
+                    <i class="fa-solid fa-sun sun-icon"></i>
+                </button>
+                
+                <!-- Hamburger Menu for Mobile -->
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Open Navigation Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-bg-gradients">
+                <div class="gradient-sphere gradient-sphere-1"></div>
+                <div class="gradient-sphere gradient-sphere-2"></div>
+            </div>
+            
+            <div class="container hero-container grid-2">
+                <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
+                    <span class="welcome-badge"><i class="fa-solid fa-chart-line badge-icon"></i> Aspiring Data Analyst</span>
+                    <h1 class="hero-title">
+                        Hi, I am <br>
+                        <span class="gradient-text">Neha Rai</span>
+                    </h1>
+                    <h2 class="hero-subtitle">
+                        I specialize in <span id="typed-text"></span>
+                    </h2>
+                    <p class="hero-description">
+                        An MCA student passionate about translating complex datasets into clear, actionable business stories. Proficient in transforming raw data using Python, SQL, Excel, Power BI, and Tableau.
+                    </p>
+                    <div class="hero-cta-buttons">
+                        <a href="#contact" class="btn btn-primary" id="btn-hero-contact">
+                            <span class="btn-text">Get In Touch</span>
+                            <i class="fa-solid fa-paper-plane btn-icon"></i>
+                        </a>
+                        <a href="#projects" class="btn btn-secondary" id="btn-hero-projects">
+                            <span class="btn-text">View Projects</span>
+                            <i class="fa-solid fa-chart-pie btn-icon"></i>
+                        </a>
+                        <a href="assets/Neha_Rai_Resume.pdf" class="btn btn-outline" id="btn-hero-resume" download>
+                            <span class="btn-text">Download Resume</span>
+                            <i class="fa-solid fa-download btn-icon"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hero-image-wrapper" data-aos="fade-left" data-aos-duration="1000">
+                    <div class="profile-frame">
+                        <div class="profile-orbit orbit-1"></div>
+                        <div class="profile-orbit orbit-2"></div>
+                        <div class="profile-img-container">
+                            <img src="assets/images/neha_profile.jpg" alt="Neha Rai Profile Photo" class="profile-img">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="about-section section-padding">
+            <div class="container">
+                <div class="section-header text-center" data-aos="fade-up">
+                    <span class="section-subtitle">Get to know me</span>
+                    <h2 class="section-title">About Me</h2>
+                    <div class="section-title-bar"></div>
+                </div>
+                
+                <div class="grid-2 about-content-grid">
+                    <div class="about-info-panel" data-aos="fade-right" data-aos-delay="100">
+                        <h3 class="panel-title">My Professional Journey</h3>
+                        <p class="about-text">
+                            I am currently pursuing my <strong>Master of Computer Applications (MCA)</strong> at the <strong>Noida Institute of Engineering and Technology (NIET)</strong>, Greater Noida. My academic and personal projects revolve around statistical computing, data analysis, and predictive modeling.
+                        </p>
+                        <p class="about-text">
+                            With a strong foundation in database management and scripting, I bridge the gap between numbers and decisions. I enjoy finding hidden patterns in messy data, creating dashboards that simplify complex metrics, and assisting organizations in optimization.
+                        </p>
+                        
+                        <div class="career-objective-box">
+                            <div class="objective-header">
+                                <i class="fa-solid fa-bullseye objective-icon"></i>
+                                <h4>Career Objective</h4>
+                            </div>
+                            <p class="objective-text">
+                                Actively seeking entry-level Data Analyst roles or internships where I can apply my quantitative analysis skills, data validation expertise, and visualization capabilities to solve real-world challenges.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-quick-stats-panel" data-aos="fade-left" data-aos-delay="200">
+                        <h3 class="panel-title">Education Timeline</h3>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-marker">
+                                    <i class="fa-solid fa-graduation-cap"></i>
+                                </div>
+                                <div class="timeline-content">
+                                    <span class="timeline-date">2025 - Present</span>
+                                    <h4 class="timeline-title">Master of Computer Applications (MCA)</h4>
+                                    <p class="timeline-institution">Noida Institute of Engineering and Technology (NIET), Greater Noida</p>
+                                    <p class="timeline-desc">Focusing on advanced database systems, data structures, and computer science concepts.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-marker">
+                                    <i class="fa-solid fa-user-graduate"></i>
+                                </div>
+                                <div class="timeline-content">
+                                    <span class="timeline-date">2022 - 2025</span>
+                                    <h4 class="timeline-title">Bachelor of Computer Applications (BCA)</h4>
+                                    <p class="timeline-institution">Mahatma Gandhi Kashi Vidyapith (MGKVP) University, Varanasi</p>
+                                    <p class="timeline-desc">Graduated with 69.3%. Gained a solid foundation in programming, database structures, and quantitative analysis.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="skills-section section-padding section-bg-alt">
+            <div class="container">
+                <div class="section-header text-center" data-aos="fade-up">
+                    <span class="section-subtitle">What I bring to the table</span>
+                    <h2 class="section-title">Technical Expertise</h2>
+                    <div class="section-title-bar"></div>
+                </div>
+                
+                <div class="skills-grid" data-aos="fade-up" data-aos-delay="100">
+                    <!-- Data Analysis & Querying -->
+                    <div class="skill-category-card">
+                        <div class="category-header">
+                            <i class="fa-solid fa-database category-icon"></i>
+                            <h3>Data Querying & Analysis</h3>
+                        </div>
+                        <div class="category-skills-list">
+                            <!-- Python -->
+                            <div class="skill-item">
+                                <div class="skill-meta">
+                                    <span class="skill-name"><i class="fa-brands fa-python skill-logo"></i> Python</span>
+                                    <span class="skill-percentage">80%</span>
+                                </div>
+                                <div class="skill-progress-bg">
+                                    <div class="skill-progress-bar" style="width: 80%"></div>
+                                </div>
+                                <p class="skill-usage-desc">Pandas, NumPy, Matplotlib, Seaborn for descriptive analysis.</p>
+                            </div>
+                            
+                            <!-- SQL -->
+                            <div class="skill-item">
+                                <div class="skill-meta">
+                                    <span class="skill-name"><i class="fa-solid fa-server skill-logo"></i> SQL</span>
+                                    <span class="skill-percentage">85%</span>
+                                </div>
+                                <div class="skill-progress-bg">
+                                    <div class="skill-progress-bar" style="width: 85%"></div>
+                                </div>
+                                <p class="skill-usage-desc">Joins, Subqueries, CTEs, Window functions, and data cleaning.</p>
+                            </div>
+                            
+                            <!-- Excel -->
+                            <div class="skill-item">
+                                <div class="skill-meta">
+                                    <span class="skill-name"><i class="fa-solid fa-file-excel skill-logo"></i> Advanced Excel</span>
+                                    <span class="skill-percentage">78%</span>
+                                </div>
+                                <div class="skill-progress-bg">
+                                    <div class="skill-progress-bar" style="width: 78%"></div>
+                                </div>
+                                <p class="skill-usage-desc">VLOOKUP, Pivot Tables, Power Query, Conditional Formatting.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Data Visualization -->
+                    <div class="skill-category-card">
+                        <div class="category-header">
+                            <i class="fa-solid fa-chart-column category-icon"></i>
+                            <h3>Visual Analytics & Dashboards</h3>
+                        </div>
+                        <div class="category-skills-list">
+                            <!-- Power BI -->
+                            <div class="skill-item">
+                                <div class="skill-meta">
+                                    <span class="skill-name"><i class="fa-solid fa-chart-bar skill-logo"></i> Power BI</span>
+                                    <span class="skill-percentage">82%</span>
+                                </div>
+                                <div class="skill-progress-bg">
+                                    <div class="skill-progress-bar" style="width: 82%"></div>
+                                </div>
+                                <p class="skill-usage-desc">DAX calculations, interactive dashboards, star schemas.</p>
+                            </div>
+                            
+                            <!-- Tableau -->
+                            <div class="skill-item">
+                                <div class="skill-meta">
+                                    <span class="skill-name"><i class="fa-solid fa-chart-line skill-logo"></i> Tableau</span>
+                                    <span class="skill-percentage">75%</span>
+                                </div>
+                                <div class="skill-progress-bg">
+                                    <div class="skill-progress-bar" style="width: 75%"></div>
+                                </div>
+                                <p class="skill-usage-desc">Storyboards, calculated fields, parameter filters, heatmaps.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Web & Developer Tools -->
+                    <div class="skill-category-card">
+                        <div class="category-header">
+                            <i class="fa-solid fa-screwdriver-wrench category-icon"></i>
+                            <h3>Development & Version Control</h3>
+                        </div>
+                        <div class="category-skills-list">
+                            <!-- HTML & CSS -->
+                            <div class="skill-item">
+                                <div class="skill-meta">
+                                    <span class="skill-name"><i class="fa-brands fa-html5 skill-logo"></i> HTML5 / CSS3</span>
+                                    <span class="skill-percentage">80%</span>
+                                </div>
+                                <div class="skill-progress-bg">
+                                    <div class="skill-progress-bar" style="width: 80%"></div>
+                                </div>
+                                <p class="skill-usage-desc">Semantic structure, modern CSS grid/flexbox, custom styles.</p>
+                            </div>
+                            
+                            <!-- Git & GitHub -->
+                            <div class="skill-item">
+                                <div class="skill-meta">
+                                    <span class="skill-name"><i class="fa-brands fa-github skill-logo"></i> Git & GitHub</span>
+                                    <span class="skill-percentage">76%</span>
+                                </div>
+                                <div class="skill-progress-bg">
+                                    <div class="skill-progress-bar" style="width: 76%"></div>
+                                </div>
+                                <p class="skill-usage-desc">Version tracking, commits, branches, project deployments.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="projects-section section-padding">
+            <div class="container">
+                <div class="section-header text-center" data-aos="fade-up">
+                    <span class="section-subtitle">Real-world applications</span>
+                    <h2 class="section-title">Featured Projects</h2>
+                    <div class="section-title-bar"></div>
+                </div>
+                
+                <div class="projects-grid">
+                    
+                    <!-- Project 1: Swiggy Restaurant Data Analysis -->
+                    <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="project-card-header">
+                            <i class="fa-solid fa-utensils project-icon-fallback"></i>
+                        </div>
+                        <div class="project-card-body">
+                            <div class="project-tags">
+                                <span class="project-tag">Python</span>
+                                <span class="project-tag">SQL</span>
+                                <span class="project-tag">Power BI</span>
+                                <span class="project-tag">Pandas</span>
+                                <span class="project-tag">EDA</span>
+                            </div>
+                            <h3 class="project-title">Swiggy Restaurant Data Analysis</h3>
+                            <p class="project-desc">
+                                Cleaned restaurant transactional data using Python, Pandas, and NumPy. Modeled dining behaviors via EDA on customer ratings, cuisines, and pricing. Built an interactive Power BI dashboard with DAX to evaluate performance.
+                            </p>
+                            <div class="project-metrics">
+                                <div class="metric-item">
+                                    <span class="metric-val">10K+</span>
+                                    <span class="metric-lbl">Rows Cleaned</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-val">Multi-City</span>
+                                    <span class="metric-lbl">Analysis</span>
+                                </div>
+                            </div>
+                            <div class="project-actions">
+                                <a href="https://github.com/nrai30802-code/Swiggy-Data-Analysis" target="_blank" rel="noopener noreferrer" class="btn btn-card-action btn-card-git" id="btn-proj-swiggy-git">
+                                    <i class="fa-brands fa-github"></i> GitHub
+                                </a>
+                                <a href="#" class="btn btn-card-action btn-card-demo" id="btn-proj-swiggy-demo">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Demo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Superstore Sales & Profitability Analysis -->
+                    <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="project-card-header">
+                            <i class="fa-solid fa-store project-icon-fallback"></i>
+                        </div>
+                        <div class="project-card-body">
+                            <div class="project-tags">
+                                <span class="project-tag">Power BI</span>
+                                <span class="project-tag">DAX</span>
+                                <span class="project-tag">Excel</span>
+                                <span class="project-tag">Jupyter</span>
+                            </div>
+                            <h3 class="project-title">Superstore Sales & Profitability Analysis</h3>
+                            <p class="project-desc">
+                                Analyzed retail transaction data to evaluate regional revenue trends and shipping delays. Designed an interactive Power BI dashboard to visualize profit margins, utilizing advanced DAX queries to track YoY sales performance.
+                            </p>
+                            <div class="project-metrics">
+                                <div class="metric-item">
+                                    <span class="metric-val">YoY</span>
+                                    <span class="metric-lbl">Sales Tracking</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-val">Power BI</span>
+                                    <span class="metric-lbl">Dashboard</span>
+                                </div>
+                            </div>
+                            <div class="project-actions">
+                                <a href="https://github.com/nrai30802-code/Superstore-Data-Analysis" target="_blank" rel="noopener noreferrer" class="btn btn-card-action btn-card-git" id="btn-proj-superstore-git">
+                                    <i class="fa-brands fa-github"></i> GitHub
+                                </a>
+                                <a href="#" class="btn btn-card-action btn-card-demo" id="btn-proj-superstore-demo">
+                                    <i class="fa-solid fa-arrow-up-right-from-square"></i> Demo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: Object-Oriented Hotel Management System (HMS) -->
+                    <div class="project-card" data-aos="fade-up" data-aos-delay="300">
+                        <div class="project-card-header">
+                            <i class="fa-solid fa-hotel project-icon-fallback"></i>
+                        </div>
+                        <div class="project-card-body">
+                            <div class="project-tags">
+                                <span class="project-tag">Java</span>
+                                <span class="project-tag">Core OOPs</span>
+                                <span class="project-tag">File Handling</span>
+                                <span class="project-tag">CLI</span>
+                            </div>
+                            <h3 class="project-title">Hotel Management System (HMS)</h3>
+                            <p class="project-desc">
+                                Implemented a modular, menu-driven command-line application in Java using OOP principles (Encapsulation, Inheritance, Polymorphism). Created persistent local storage pipelines using File Handling and exception handling.
+                            </p>
+                            <div class="project-metrics">
+                                <div class="metric-item">
+                                    <span class="metric-val">Java OOPs</span>
+                                    <span class="metric-lbl">Architecture</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-val">Persistent</span>
+                                    <span class="metric-lbl">File Storage</span>
+                                </div>
+                            </div>
+                            <div class="project-actions">
+                                <a href="https://github.com/nrai30802-code" target="_blank" rel="noopener noreferrer" class="btn btn-card-action btn-card-git" id="btn-proj-hms-git">
+                                    <i class="fa-brands fa-github"></i> GitHub
+                                </a>
+                                <span class="btn btn-card-action btn-card-demo disabled" style="opacity: 0.6; cursor: not-allowed;" title="Command-Line Application">
+                                    <i class="fa-solid fa-terminal"></i> CLI App
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section id="certifications" class="certifications-section section-padding section-bg-alt">
+            <div class="container">
+                <div class="section-header text-center" data-aos="fade-up">
+                    <span class="section-subtitle">Credentials & Skills Validation</span>
+                    <h2 class="section-title">Certifications</h2>
+                    <div class="section-title-bar"></div>
+                </div>
+                
+                <div class="certifications-grid">
+                    <!-- Certificate 1: Python -->
+                    <div class="cert-card" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="cert-icon-wrapper">
+                            <i class="fa-brands fa-python cert-icon"></i>
+                        </div>
+                        <div class="cert-content">
+                            <h3 class="cert-title">Introduction to Python</h3>
+                            <p class="cert-issuer"><i class="fa-solid fa-building-columns"></i> Infosys Wingspan</p>
+                            <p class="cert-details">Certified in Python programming fundamentals, data structures, and foundational scripting logic (Nov 2025).</p>
+                            <a href="assets/python_certificate.pdf" target="_blank" rel="noopener noreferrer" class="cert-link" id="btn-cert-python-verify">View Certificate <i class="fa-solid fa-angle-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Certificate 2: Linux -->
+                    <div class="cert-card" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="cert-icon-wrapper">
+                            <i class="fa-brands fa-linux cert-icon"></i>
+                        </div>
+                        <div class="cert-content">
+                            <h3 class="cert-title">Linux Fundamentals & Operating Systems</h3>
+                            <p class="cert-issuer"><i class="fa-solid fa-building-columns"></i> Infosys Springboard</p>
+                            <p class="cert-details">Gained key proficiency in Linux command line commands, operating system architectures, and scripting principles (Nov 2025).</p>
+                            <a href="assets/linux_certificate.pdf" target="_blank" rel="noopener noreferrer" class="cert-link" id="btn-cert-linux-verify">View Certificate <i class="fa-solid fa-angle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="education-section section-padding">
+            <div class="container">
+                <div class="section-header text-center" data-aos="fade-up">
+                    <span class="section-subtitle">Academic Credentials</span>
+                    <h2 class="section-title">Education</h2>
+                    <div class="section-title-bar"></div>
+                </div>
+                
+                <div class="education-grid">
+                    <!-- MCA NIET -->
+                    <div class="edu-card" data-aos="fade-up" data-aos-delay="100">
+                        <div class="edu-header">
+                            <span class="edu-period"><i class="fa-solid fa-calendar-days"></i> 2025 - Present</span>
+                            <span class="edu-badge"><i class="fa-solid fa-award"></i> Active Pursuing</span>
+                        </div>
+                        <div class="edu-body">
+                            <h3 class="edu-degree">Master of Computer Applications (MCA)</h3>
+                            <h4 class="edu-institution">Noida Institute of Engineering and Technology (NIET)</h4>
+                            <p class="edu-location"><i class="fa-solid fa-location-dot"></i> Greater Noida, Uttar Pradesh</p>
+                            <p class="edu-desc">Covering software engineering, database design systems (RDBMS), object-oriented programming, and statistics foundations.</p>
+                        </div>
+                    </div>
+
+                    <!-- BCA -->
+                    <div class="edu-card" data-aos="fade-up" data-aos-delay="200">
+                        <div class="edu-header">
+                            <span class="edu-period"><i class="fa-solid fa-calendar-days"></i> 2022 - 2025</span>
+                            <span class="edu-badge badge-completed"><i class="fa-solid fa-circle-check"></i> Completed (69.3%)</span>
+                        </div>
+                        <div class="edu-body">
+                            <h3 class="edu-degree">Bachelor of Computer Applications (BCA)</h3>
+                            <h4 class="edu-institution">Mahatma Gandhi Kashi Vidyapith (MGKVP) University</h4>
+                            <p class="edu-location"><i class="fa-solid fa-location-dot"></i> Varanasi, Uttar Pradesh, India</p>
+                            <p class="edu-desc">Graduated with 69.3%. Gained a strong footing in programming languages (C, C++, Java), database queries (SQL), mathematics, and web technologies.</p>
+                        </div>
+                    </div>
+
+                    <!-- Achievement -->
+                    <div class="edu-card edu-card-full" data-aos="fade-up" data-aos-delay="300" style="grid-column: 1 / -1; margin-top: 20px;">
+                        <div class="edu-header">
+                            <span class="edu-period"><i class="fa-solid fa-trophy"></i> Academic Achievement</span>
+                            <span class="edu-badge"><i class="fa-solid fa-star"></i> CUET PG Merit</span>
+                        </div>
+                        <div class="edu-body">
+                            <h3 class="edu-degree">Tuition Fee Waiver (TFW) Merit Seat</h3>
+                            <h4 class="edu-institution">Master of Computer Applications (MCA) Admission</h4>
+                            <p class="edu-desc">Secured a Tuition Fee Waiver (TFW) merit seat in MCA via CUET PG counselling, awarded to top entrance exam performers.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section section-padding section-bg-alt">
+            <div class="container">
+                <div class="section-header text-center" data-aos="fade-up">
+                    <span class="section-subtitle">Reach out for opportunities</span>
+                    <h2 class="section-title">Get In Touch</h2>
+                    <div class="section-title-bar"></div>
+                </div>
+                
+                <div class="grid-2 contact-grid">
+                    <!-- Contact Information Card -->
+                    <div class="contact-info" data-aos="fade-right" data-aos-delay="100">
+                        <h3 class="contact-subtitle">Let's Connect</h3>
+                        <p class="contact-lead-text">
+                            I am actively seeking internships and entry-level opportunities as a Data Analyst. Feel free to contact me for collaboration, project inquiries, or professional networking.
+                        </p>
+                        
+                        <div class="contact-info-list">
+                            <!-- Email -->
+                            <div class="contact-info-item">
+                                <div class="contact-info-icon">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+                                <div class="contact-info-text">
+                                    <span class="info-label">Email Me</span>
+                                    <a href="mailto:nrai30802@gmail.com" class="info-value">nrai30802@gmail.com</a>
+                                </div>
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="contact-info-item">
+                                <div class="contact-info-icon">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+                                <div class="contact-info-text">
+                                    <span class="info-label">Call Me</span>
+                                    <a href="tel:+919555743211" class="info-value">+91-9555743211</a>
+                                </div>
+                            </div>
+                            
+                            <!-- LinkedIn -->
+                            <div class="contact-info-item">
+                                <div class="contact-info-icon">
+                                    <i class="fa-brands fa-linkedin-in"></i>
+                                </div>
+                                <div class="contact-info-text">
+                                    <span class="info-label">LinkedIn</span>
+                                    <a href="https://linkedin.com/in/neha-rai" target="_blank" rel="noopener noreferrer" class="info-value">linkedin.com/in/neha-rai</a>
+                                </div>
+                            </div>
+
+                            <!-- GitHub -->
+                            <div class="contact-info-item">
+                                <div class="contact-info-icon">
+                                    <i class="fa-brands fa-github"></i>
+                                </div>
+                                <div class="contact-info-text">
+                                    <span class="info-label">GitHub Profile</span>
+                                    <a href="https://github.com/nrai30802-code" target="_blank" rel="noopener noreferrer" class="info-value">github.com/nrai30802-code</a>
+                                </div>
+                            </div>
+
+                            <!-- Location -->
+                            <div class="contact-info-item">
+                                <div class="contact-info-icon">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <div class="contact-info-text">
+                                    <span class="info-label">Location</span>
+                                    <span class="info-value">Greater Noida, India (Open to Remote / Relocation)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Contact Form Card -->
+                    <div class="contact-form-wrapper" data-aos="fade-left" data-aos-delay="200">
+                        <form id="contact-form" class="contact-form">
+                            <h3 class="contact-subtitle">Send a Message</h3>
+                            
+                            <div class="form-group">
+                                <label for="form-name" class="form-label">Full Name</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-user input-icon"></i>
+                                    <input type="text" id="form-name" name="name" class="form-control" placeholder="John Doe" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="form-email" class="form-label">Email Address</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-envelope input-icon"></i>
+                                    <input type="email" id="form-email" name="email" class="form-control" placeholder="john@example.com" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="form-subject" class="form-label">Subject</label>
+                                <div class="input-wrapper">
+                                    <i class="fa-solid fa-circle-info input-icon"></i>
+                                    <input type="text" id="form-subject" name="subject" class="form-control" placeholder="Data Analyst Intern Role" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="form-message" class="form-label">Message</label>
+                                <div class="input-wrapper align-start">
+                                    <i class="fa-solid fa-message input-icon top-icon"></i>
+                                    <textarea id="form-message" name="message" rows="5" class="form-control" placeholder="Write your message here..." required></textarea>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-block" id="btn-submit-contact">
+                                <span class="btn-text">Send Message</span>
+                                <i class="fa-solid fa-paper-plane btn-icon"></i>
+                            </button>
+                            <div id="form-status-msg" class="form-status-msg"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="portfolio-footer">
+        <div class="container footer-container">
+            <div class="footer-brand">
+                <a href="#home" class="logo">&lt;NehaRai /&gt;</a>
+                <p class="footer-tagline">Turning Data Complexity into Decisions.</p>
+            </div>
+            
+            <div class="footer-socials">
+                <a href="mailto:nrai30802@gmail.com" aria-label="Send Email" class="social-link"><i class="fa-solid fa-envelope"></i></a>
+                <a href="https://linkedin.com/in/neha-rai" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" class="social-link"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://github.com/nrai30802-code" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" class="social-link"><i class="fa-brands fa-github"></i></a>
+            </div>
+            
+            <div class="footer-copyright">
+                <p>&copy; 2026 Neha Rai. All rights reserved.</p>
+                <p class="footer-author-sig">Designed by <span class="author-name">Neha Rai</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scroll-top" class="scroll-top-btn" aria-label="Scroll to Top">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- External Script integrations -->
+    <!-- AOS JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" integrity="sha512-1cK78a1o+vp/EB70yb7tYYgGVGPPCGnyVJ56WXAlIyl58DS1EQLLnlXZc69UVguXji5ffaLMCGigYGCUMs56gw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Typed.js -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+</body>
+</html>
