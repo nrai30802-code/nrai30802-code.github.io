@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DITS - Add/Edit Internship</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="min-vh-100 d-flex flex-column">
+    <div id="preloader" class="preloader"><div class="loader-spinner"></div></div>
+
+    <nav class="navbar navbar-expand-lg navbar-light glass-navbar sticky-top py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="dashboard.html">
+                <i class="fa-solid fa-graduation-cap text-primary fs-3 me-2"></i>
+                <span class="fw-bold fs-4 text-dark display-font">DITS</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container py-4 flex-grow-1">
+        <nav aria-label="breadcrumb" class="mb-3">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="dashboard.html" class="text-decoration-none">Dashboard</a></li>
+                <li class="breadcrumb-item active" id="breadcrumbAction">Add Internship</li>
+            </ol>
+        </nav>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="glass-card p-4 p-md-5 bg-white">
+                    <h2 class="display-font text-dark mb-4" id="formTitle">
+                        <i class="fa-solid fa-plus-circle text-primary me-2"></i>Register New Internship
+                    </h2>
+                    
+                    <form id="internshipForm" class="needs-validation" novalidate>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="company" class="form-label fw-semibold">Company Name *</label>
+                                <input type="text" class="form-control" id="company" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="role" class="form-label fw-semibold">Internship Role *</label>
+                                <input type="text" class="form-control" id="role" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="duration" class="form-label fw-semibold">Duration *</label>
+                                <input type="text" class="form-control" id="duration" placeholder="e.g. 3 Months" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="start" class="form-label fw-semibold">Start Date *</label>
+                                <input type="date" class="form-control" id="start" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="end" class="form-label fw-semibold">End Date *</label>
+                                <input type="date" class="form-control" id="end" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="status" class="form-label fw-semibold">Status *</label>
+                                <select class="form-select" id="status" required>
+                                    <option value="Applied">Applied</option>
+                                    <option value="Shortlisted">Shortlisted</option>
+                                    <option value="Interview">Interview</option>
+                                    <option value="Selected">Selected</option>
+                                    <option value="Ongoing">Ongoing</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="mentor" class="form-label fw-semibold">Mentor Name *</label>
+                                <input type="text" class="form-control" id="mentor" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="stipend" class="form-label fw-semibold">Stipend</label>
+                                <input type="text" class="form-control" id="stipend" placeholder="e.g. $50,000 / Month">
+                            </div>
+                            <div class="col-12">
+                                <label for="location" class="form-label fw-semibold">Location *</label>
+                                <input type="text" class="form-control" id="location" placeholder="e.g. Remote" required>
+                            </div>
+                            <div class="col-12">
+                                <label for="desc" class="form-label fw-semibold">Description</label>
+                                <textarea class="form-control" id="desc" rows="4"></textarea>
+                            </div>
+                            <div class="col-12 mt-4 d-flex gap-3">
+                                <button type="submit" class="btn btn-gradient px-4 py-3 flex-grow-1">Save Record</button>
+                                <a href="dashboard.html" class="btn btn-glass px-4 py-3 text-center text-decoration-none">Cancel</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-4 mt-auto">
+        <div class="container text-center text-secondary small">
+            &copy; 2026 Digital Internship Tracking System. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        const student = JSON.parse(localStorage.getItem('dits_current_student'));
+        if (!student) window.location.href = 'login.html';
+
+        // Check Edit Mode
+        const urlParams = new URLSearchParams(window.location.search);
+        const editId = parseInt(urlParams.get('edit_id'));
+        const internships = JSON.parse(localStorage.getItem('dits_internships') || '[]');
+        let targetIntern = null;
+
+        if (editId) {
+            targetIntern = internships.find(i => i.id === editId && i.student_id === student.id);
+            if (targetIntern) {
+                document.getElementById('formTitle').innerHTML = `<i class="fa-solid fa-edit text-warning me-2"></i>Edit Internship Details`;
+                document.getElementById('breadcrumbAction').textContent = 'Edit Details';
+                
+                // Prefill
+                document.getElementById('company').value = targetIntern.company;
+                document.getElementById('role').value = targetIntern.role;
+                document.getElementById('duration').value = targetIntern.duration;
+                document.getElementById('start').value = targetIntern.start;
+                document.getElementById('end').value = targetIntern.end;
+                document.getElementById('status').value = targetIntern.status;
+                document.getElementById('mentor').value = targetIntern.mentor;
+                document.getElementById('stipend').value = targetIntern.stipend || '';
+                document.getElementById('location').value = targetIntern.location;
+                document.getElementById('desc').value = targetIntern.desc || '';
+            }
+        }
+
+        document.getElementById('internshipForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (this.checkValidity()) {
+                const company = document.getElementById('company').value.trim();
+                const role = document.getElementById('role').value.trim();
+                const duration = document.getElementById('duration').value.trim();
+                const start = document.getElementById('start').value;
+                const end = document.getElementById('end').value;
+                const status = document.getElementById('status').value;
+                const mentor = document.getElementById('mentor').value.trim();
+                const stipend = document.getElementById('stipend').value.trim() || 'Unpaid';
+                const location = document.getElementById('location').value.trim();
+                const desc = document.getElementById('desc').value.trim();
+
+                const dbList = JSON.parse(localStorage.getItem('dits_internships') || '[]');
+                const logs = JSON.parse(localStorage.getItem('dits_logs') || '[]');
+
+                if (targetIntern) {
+                    // Update
+                    const index = dbList.findIndex(i => i.id === editId);
+                    const oldStatus = dbList[index].status;
+                    
+                    dbList[index] = {
+                        ...dbList[index],
+                        company, role, duration, start, end, status, mentor, stipend, location, desc
+                    };
+                    
+                    if (oldStatus !== status) {
+                        logs.push({ internship_id: editId, status: status, notes: 'Status edited through dashboard.', time: new Date().toISOString().split('T')[0] });
+                    }
+                } else {
+                    // Insert
+                    const newId = dbList.length ? Math.max(...dbList.map(i => i.id)) + 1 : 1;
+                    dbList.push({
+                        id: newId,
+                        student_id: student.id,
+                        company, role, duration, start, end, status, mentor, stipend, location, desc,
+                        cert: null, cert_status: 'Pending', feedback: null
+                    });
+                    
+                    logs.push({ internship_id: newId, status: 'Applied', notes: 'Internship registered in platform.', time: new Date().toISOString().split('T')[0] });
+                    if (status !== 'Applied') {
+                        logs.push({ internship_id: newId, status: status, notes: 'Initialized status to ' + status, time: new Date().toISOString().split('T')[0] });
+                    }
+                }
+
+                localStorage.setItem('dits_internships', JSON.stringify(dbList));
+                localStorage.setItem('dits_logs', JSON.stringify(logs));
+                window.location.href = 'dashboard.html';
+            } else {
+                this.classList.add('was-validated');
+            }
+        });
+    </script>
+</body>
+</html>

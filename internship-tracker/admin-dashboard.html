@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DITS - Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="preloader" class="preloader"><div class="loader-spinner"></div></div>
+
+    <nav class="navbar navbar-expand-lg navbar-light glass-navbar sticky-top py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="admin-dashboard.html">
+                <i class="fa-solid fa-graduation-cap text-primary fs-3 me-2"></i>
+                <span class="fw-bold fs-4 text-dark display-font">DITS - Admin</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link px-3 active text-primary" href="admin-dashboard.html"><i class="fa-solid fa-lock-open me-1"></i> Admin Panel</a></li>
+                    <li class="nav-item"><button class="btn btn-outline-danger btn-sm border-0" id="logoutBtn"><i class="fa-solid fa-sign-out-alt"></i> Logout</button></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4 flex-grow-1">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="display-5 fw-extrabold display-font text-dark mb-1">Admin Panel</h1>
+                <p class="text-secondary mb-0">System Placement Records & Document Verification</p>
+            </div>
+            <button onclick="exportTableToCSV('adminMasterTable', 'internship_master_report.csv')" class="btn btn-gradient">
+                <i class="fa-solid fa-file-csv me-2"></i>Export CSV Report
+            </button>
+        </div>
+
+        <!-- Widgets Board -->
+        <div class="row g-4 mb-4">
+            <div class="col-xl-3 col-sm-6">
+                <div class="widget-card widget-blue">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase small fw-bold opacity-75">Students Registered</h6>
+                            <h2 class="display-font fw-extrabold mb-0" id="widgetStudents">0</h2>
+                        </div>
+                        <div class="fs-1"><i class="fa-solid fa-users"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6">
+                <div class="widget-card widget-cyan">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase small fw-bold opacity-75">Total Internships</h6>
+                            <h2 class="display-font fw-extrabold mb-0" id="widgetInternships">0</h2>
+                        </div>
+                        <div class="fs-1"><i class="fa-solid fa-briefcase"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6">
+                <div class="widget-card widget-green">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase small fw-bold opacity-75">Ongoing Internships</h6>
+                            <h2 class="display-font fw-extrabold mb-0" id="widgetOngoing">0</h2>
+                        </div>
+                        <div class="fs-1"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6">
+                <div class="widget-card widget-orange">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase small fw-bold opacity-75">Pending Reviews</h6>
+                            <h2 class="display-font fw-extrabold mb-0" id="widgetPending">0</h2>
+                        </div>
+                        <div class="fs-1"><i class="fa-solid fa-circle-exclamation"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-4">
+            <!-- Analytics Chart -->
+            <div class="col-lg-5">
+                <div class="glass-card p-4 h-100 bg-white">
+                    <h4 class="display-font text-dark mb-4"><i class="fa-solid fa-chart-bar text-primary me-2"></i>Placement Analytics</h4>
+                    <div class="position-relative" style="height: 280px;">
+                        <canvas id="adminStatusChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="col-lg-7">
+                <div class="glass-card p-4 h-100 bg-white">
+                    <h4 class="display-font text-dark mb-4"><i class="fa-solid fa-sliders text-cyan me-2"></i>Filters and Controls</h4>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label fw-semibold small text-muted">Search Student / Roll Number</label>
+                            <input type="text" class="form-control bg-light border-0" id="searchStudent" placeholder="Search by name or roll number...">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small text-muted">Filter by Department</label>
+                            <select class="form-select bg-light border-0" id="filterDept">
+                                <option value="">All Departments</option>
+                                <option value="Computer Applications">Computer Applications (MCA)</option>
+                                <option value="Computer Science Engineering">B.Tech CSE</option>
+                                <option value="Information Technology">B.Tech IT</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold small text-muted">Reset Registry View</label>
+                            <button onclick="document.getElementById('filterDept').value=''; document.getElementById('searchStudent').value=''; filterStudents();" class="btn btn-glass w-100 btn-sm text-primary py-2">
+                                <i class="fa-solid fa-refresh me-1"></i>Reset Filters
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Student List -->
+        <div class="glass-card p-4 bg-white mb-4">
+            <h4 class="display-font text-dark mb-4"><i class="fa-solid fa-list-check text-primary me-2"></i>Student Registry</h4>
+            <div class="table-responsive">
+                <table class="table custom-table" id="adminMasterTable">
+                    <thead>
+                        <tr>
+                            <th>Student Details</th>
+                            <th>Roll Number</th>
+                            <th>Department</th>
+                            <th>Contact</th>
+                            <th>Total Registered</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Certificate verification -->
+        <div class="glass-card p-4 bg-white">
+            <h4 class="display-font text-dark mb-4"><i class="fa-solid fa-stamp text-success me-2"></i>Pending Certificate Verification Desk</h4>
+            <div class="table-responsive">
+                <table class="table custom-table">
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Company & Role</th>
+                            <th>Duration</th>
+                            <th>Certificate</th>
+                            <th class="text-end">Verification Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pendingCertTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Modal Container (Appends dynamically inside code) -->
+    <div id="modalContainer"></div>
+
+    <footer class="py-4 mt-auto">
+        <div class="container text-center text-secondary small">
+            &copy; 2026 Digital Internship Tracking System. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        const admin = JSON.parse(localStorage.getItem('dits_current_admin'));
+        if (!admin) window.location.href = 'admin-login.html';
+
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('dits_current_admin');
+            window.location.href = 'index.html';
+        });
+
+        // Load DB data
+        const users = JSON.parse(localStorage.getItem('dits_users') || '[]');
+        const internships = JSON.parse(localStorage.getItem('dits_internships') || '[]');
+
+        // Counts
+        const ongoing = internships.filter(i => i.status === 'Ongoing').length;
+        const completed = internships.filter(i => i.status === 'Completed').length;
+        const pending = internships.filter(i => i.cert && i.cert_status === 'Pending').length;
+
+        document.getElementById('widgetStudents').textContent = users.length;
+        document.getElementById('widgetInternships').textContent = internships.length;
+        document.getElementById('widgetOngoing').textContent = ongoing;
+        document.getElementById('widgetPending').textContent = pending;
+
+        // Render Student rows
+        document.getElementById('studentTableBody').innerHTML = users.map(u => {
+            const count = internships.filter(i => i.student_id === u.id).length;
+            return `
+                <tr class="student-row" data-dept="${u.dept}">
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <img src="${u.pic}" alt="Avatar" class="rounded-circle me-3" style="width: 36px; height: 36px; object-fit:cover;">
+                            <div>
+                                <span class="fw-bold text-dark student-name">${u.name}</span><br>
+                                <small class="text-muted">${u.email}</small>
+                            </div>
+                        </div>
+                    </td>
+                    <td><span class="fw-semibold text-dark student-roll">${u.roll}</span></td>
+                    <td>${u.dept}</td>
+                    <td>${u.phone || 'N/A'}</td>
+                    <td><span class="badge bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-pill">${count} Internships</span></td>
+                </tr>`;
+        }).join('');
+
+        // Render Pending Certificates
+        const pendingCerts = internships.filter(i => i.cert && i.cert_status === 'Pending');
+        const pendingTbody = document.getElementById('pendingCertTableBody');
+        
+        if (pendingCerts.length === 0) {
+            pendingTbody.innerHTML = '<tr><td colspan="5" class="text-center py-4 text-muted">No certificates pending verification.</td></tr>';
+        } else {
+            pendingTbody.innerHTML = pendingCerts.map(i => {
+                const sObj = users.find(u => u.id === i.student_id);
+                return `
+                    <tr>
+                        <td>
+                            <span class="fw-bold text-dark">${sObj ? sObj.name : 'Student'}</span><br>
+                            <small class="text-muted">Roll: ${sObj ? sObj.roll : 'N/A'}</small>
+                        </td>
+                        <td>
+                            <span class="fw-bold text-dark">${i.company}</span><br>
+                            <small class="text-secondary">${i.role}</small>
+                        </td>
+                        <td>${i.duration}</td>
+                        <td>
+                            <button onclick="window.open('${i.cert}', '_blank')" class="btn btn-outline-primary btn-sm rounded-3">
+                                <i class="fa-solid fa-eye me-1"></i>View Document
+                            </button>
+                        </td>
+                        <td class="text-end">
+                            <button class="btn btn-success btn-sm px-3 rounded-pill" data-bs-toggle="modal" data-bs-target="#verifyModal${i.id}">
+                                <i class="fa-solid fa-check me-1"></i>Verify / Review
+                            </button>
+                        </td>
+                    </tr>`;
+            }).join('');
+
+            // Append verification modals
+            document.getElementById('modalContainer').innerHTML = pendingCerts.map(i => {
+                const sObj = users.find(u => u.id === i.student_id);
+                return `
+                    <div class="modal fade" id="verifyModal${i.id}" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content glass-card p-2 border-0 bg-white">
+                                <div class="modal-header border-bottom-0">
+                                    <h5 class="modal-title fw-bold display-font">Verify Certificate</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <form onsubmit="submitReview(event, ${i.id})">
+                                    <div class="modal-body text-start">
+                                        <p class="small text-muted mb-3">Reviewing certificate uploaded by <strong>${sObj ? sObj.name : 'Student'}</strong> for <strong>${i.company}</strong>.</p>
+                                        
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold small text-dark">Verification Status</label>
+                                            <select class="form-select" id="statusSelect${i.id}" required>
+                                                <option value="Approved">Approve Certificate</option>
+                                                <option value="Rejected">Reject Certificate</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-2">
+                                            <label class="form-label fw-bold small text-dark">Assessor Feedback / Reasons</label>
+                                            <textarea class="form-control small" id="feedbackArea${i.id}" rows="3" placeholder="e.g. Excellent work / Document matches records..."></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer border-top-0 d-flex gap-2">
+                                        <button type="submit" class="btn btn-gradient btn-sm flex-grow-1 py-2">Submit Decision</button>
+                                        <button type="button" class="btn btn-light btn-sm py-2" data-bs-dismiss="modal">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>`;
+            }).join('');
+        }
+
+        // Handle decision submission
+        function submitReview(e, internshipId) {
+            e.preventDefault();
+            const status = document.getElementById(`statusSelect${internshipId}`).value;
+            const feedback = document.getElementById(`feedbackArea${internshipId}`).value.trim() || 'None';
+
+            const dbList = JSON.parse(localStorage.getItem('dits_internships') || '[]');
+            const idx = dbList.findIndex(i => i.id === internshipId);
+            
+            dbList[idx].cert_status = status;
+            dbList[idx].feedback = feedback;
+
+            // Notify Student
+            const notifs = JSON.parse(localStorage.getItem('dits_notifications') || '[]');
+            notifs.push({
+                student_id: dbList[idx].student_id,
+                message: `Your certificate for ${dbList[idx].role} at ${dbList[idx].company} has been ${status.toUpperCase()}. Feedback: ${feedback}`,
+                read: false,
+                time: new Date().toISOString()
+            });
+
+            localStorage.setItem('dits_internships', JSON.stringify(dbList));
+            localStorage.setItem('dits_notifications', JSON.stringify(notifs));
+            location.reload();
+        }
+
+        // Render Chart
+        const stats = { applied: 0, shortlisted: 0, interview: 0, selected: 0, ongoing: 0, completed: 0 };
+        internships.forEach(i => {
+            const st = i.status.toLowerCase();
+            if (stats.hasOwnProperty(st)) stats[st]++;
+        });
+        initStatusChart('adminStatusChart', stats);
+    </script>
+</body>
+</html>

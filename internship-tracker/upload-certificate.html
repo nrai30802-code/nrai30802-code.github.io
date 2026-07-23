@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DITS - Certificate Upload Module</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="preloader" class="preloader"><div class="loader-spinner"></div></div>
+
+    <nav class="navbar navbar-expand-lg navbar-light glass-navbar sticky-top py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="dashboard.html">
+                <i class="fa-solid fa-graduation-cap text-primary fs-3 me-2"></i>
+                <span class="fw-bold fs-4 text-dark display-font">DITS</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container py-4 flex-grow-1">
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="dashboard.html" class="text-decoration-none">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="#" id="trackerBread" class="text-decoration-none">Progress Tracker</a></li>
+                <li class="breadcrumb-item active">Certificate Module</li>
+            </ol>
+        </nav>
+
+        <div class="row g-4">
+            <!-- Upload Panel -->
+            <div class="col-lg-6">
+                <div class="glass-card p-4 p-md-5 bg-white h-100">
+                    <h2 class="display-font text-dark mb-3"><i class="fa-solid fa-file-arrow-up text-primary me-2"></i>Upload Certificate</h2>
+                    <p class="text-secondary small mb-4">Submit your certificate of completion or placement offer letter. Files must be PDF/Images under 5MB.</p>
+
+                    <!-- Status Display -->
+                    <div id="statusAlertBox" style="display:none;" class="alert glass-card p-3 mb-4 d-flex align-items-center justify-content-between border-0 shadow-sm">
+                        <div>
+                            <span class="small fw-semibold d-block">Approval Status:</span>
+                            <span class="fw-bold display-font text-uppercase" id="certStatusLabel">PENDING</span>
+                        </div>
+                        <span class="status-badge" id="certStatusBadge">Pending</span>
+                    </div>
+
+                    <div id="feedbackBox" style="display:none;" class="card bg-light border-0 p-3 mb-4 rounded-3 small">
+                        <span class="fw-bold text-dark"><i class="fa-solid fa-message text-primary me-1"></i> Admin Feedback:</span>
+                        <p class="text-secondary mb-0 mt-1" id="feedbackText">No feedback yet.</p>
+                    </div>
+
+                    <form id="uploadForm">
+                        <input type="file" id="certificateFile" class="d-none" accept=".pdf, .png, .jpg, .jpeg" required>
+                        <div class="upload-dropzone mb-4" id="uploadDropzone">
+                            <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+                            <h5 class="fw-bold text-dark display-font">Drag & Drop File Here</h5>
+                            <p class="text-secondary small mb-0">or click to browse from folders</p>
+                            <small class="text-muted d-block mt-2">Supported: PDF, JPG, PNG (Max 5MB)</small>
+                        </div>
+
+                        <div class="mb-4">
+                            <p class="text-muted small fw-semibold text-center" id="previewText">No file selected.</p>
+                        </div>
+
+                        <button type="submit" class="btn btn-glass w-100 py-3 text-primary border-primary border-opacity-25 bg-primary bg-opacity-10">
+                            Submit for Verification
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Preview Panel -->
+            <div class="col-lg-6">
+                <div class="glass-card p-4 bg-white h-100 d-flex flex-column">
+                    <h4 class="display-font text-dark mb-3"><i class="fa-solid fa-eye text-cyan me-2"></i>Certificate Preview</h4>
+                    <div class="preview-container flex-grow-1" id="previewContainer">
+                        <div class="text-center p-4">
+                            <i class="fa-regular fa-file-pdf text-muted display-1 mb-3"></i>
+                            <h5 class="text-dark display-font">No Certificate File</h5>
+                            <p class="text-secondary small mb-0">Upload a certificate to generate instant interactive preview.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-4 mt-auto">
+        <div class="container text-center text-secondary small">
+            &copy; 2026 Digital Internship Tracking System. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        const student = JSON.parse(localStorage.getItem('dits_current_student'));
+        if (!student) window.location.href = 'login.html';
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = parseInt(urlParams.get('id'));
+
+        const internships = JSON.parse(localStorage.getItem('dits_internships') || '[]');
+        const target = internships.find(i => i.id === id && i.student_id === student.id);
+        
+        if (!target) window.location.href = 'dashboard.html';
+
+        document.getElementById('trackerBread').href = `progress.html?id=${id}`;
+
+        // Preview rendering function
+        function renderPreview(filePathOrData) {
+            const container = document.getElementById('previewContainer');
+            if (filePathOrData.startsWith('data:image/') || filePathOrData.endsWith('.png') || filePathOrData.endsWith('.jpg') || filePathOrData.endsWith('.jpeg')) {
+                container.innerHTML = `<img src="${filePathOrData}" alt="Certificate Preview">`;
+            } else {
+                container.innerHTML = `<iframe src="${filePathOrData}#toolbar=0" width="100%" height="100%"></iframe>`;
+            }
+        }
+
+        // Prefill existing cert
+        if (target.cert) {
+            document.getElementById('statusAlertBox').style.display = 'flex';
+            document.getElementById('certStatusLabel').textContent = target.cert_status;
+            document.getElementById('certStatusBadge').textContent = target.cert_status;
+            document.getElementById('certStatusBadge').className = `status-badge badge-${target.cert_status.toLowerCase()}`;
+            
+            const alertClassMap = { Approved: 'bg-success bg-opacity-10 text-success', Rejected: 'bg-danger bg-opacity-10 text-danger', Pending: 'bg-warning bg-opacity-10 text-warning' };
+            document.getElementById('statusAlertBox').className = `alert glass-card p-3 mb-4 d-flex align-items-center justify-content-between border-0 shadow-sm ${alertClassMap[target.cert_status]}`;
+
+            if (target.feedback) {
+                document.getElementById('feedbackBox').style.display = 'block';
+                document.getElementById('feedbackText').textContent = target.feedback;
+            }
+
+            renderPreview(target.cert);
+        }
+
+        // Form Submit Upload logic
+        let fileDataUrl = null;
+
+        // Custom local file previewer via main.js dropzone
+        const dropzone = document.getElementById('uploadDropzone');
+        const fileInput = document.getElementById('certificateFile');
+        const previewContainer = document.getElementById('previewContainer');
+
+        dropzone.addEventListener('click', () => fileInput.click());
+
+        fileInput.addEventListener('change', function() {
+            if (this.files.length) {
+                const file = this.files[0];
+                document.getElementById('previewText').textContent = `Selected: ${file.name}`;
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    fileDataUrl = e.target.result;
+                    renderPreview(fileDataUrl);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (fileDataUrl) {
+                const dbList = JSON.parse(localStorage.getItem('dits_internships') || '[]');
+                const idx = dbList.findIndex(i => i.id === id);
+                
+                dbList[idx].cert = fileDataUrl;
+                dbList[idx].cert_status = 'Pending';
+                dbList[idx].feedback = null;
+                
+                localStorage.setItem('dits_internships', JSON.stringify(dbList));
+                location.reload();
+            } else {
+                alert("Please select a file to upload first!");
+            }
+        });
+    </script>
+</body>
+</html>

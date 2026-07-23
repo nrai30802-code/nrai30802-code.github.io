@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DITS - Internship Progress Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="preloader" class="preloader"><div class="loader-spinner"></div></div>
+
+    <nav class="navbar navbar-expand-lg navbar-light glass-navbar sticky-top py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="dashboard.html">
+                <i class="fa-solid fa-graduation-cap text-primary fs-3 me-2"></i>
+                <span class="fw-bold fs-4 text-dark display-font">DITS</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container py-4 flex-grow-1">
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="dashboard.html" class="text-decoration-none">Dashboard</a></li>
+                <li class="breadcrumb-item active">Progress Tracker</li>
+            </ol>
+        </nav>
+
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <!-- Timeline Card -->
+                <div class="glass-card p-4 p-md-5 bg-white mb-4">
+                    <div class="d-flex justify-content-between align-items-start mb-4">
+                        <div>
+                            <span class="status-badge" id="detailsStatus">Status</span>
+                            <h2 class="display-font text-dark mb-1" id="detailsCompany">Company</h2>
+                            <h5 class="text-secondary mb-0" id="detailsRole">Role</h5>
+                        </div>
+                        <a href="#" id="certLink" class="btn btn-glass btn-sm"><i class="fa-solid fa-file-arrow-up me-1"></i> Certificate Module</a>
+                    </div>
+                    <hr class="border-light my-4">
+                    
+                    <!-- Steps Graphics -->
+                    <div class="timeline-steps" id="timelineSteps"></div>
+                </div>
+
+                <!-- History Logs -->
+                <div class="glass-card p-4 bg-white">
+                    <h4 class="display-font text-dark mb-4"><i class="fa-solid fa-receipt text-cyan me-2"></i>Stage History Logs</h4>
+                    <div class="position-relative border-start border-light ps-3 ms-2" id="logsContainer"></div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Specs Sheet -->
+                <div class="glass-card p-4 bg-white mb-4">
+                    <h4 class="display-font text-dark mb-3">Summary Sheet</h4>
+                    <table class="table table-borderless small mb-0">
+                        <tbody id="specsTable"></tbody>
+                    </table>
+                </div>
+
+                <!-- Form to update -->
+                <div class="glass-card p-4 bg-white" id="updateFormCard" style="display:none;">
+                    <h4 class="display-font text-dark mb-3"><i class="fa-solid fa-pen-nib text-warning me-2"></i>Log Status Update</h4>
+                    <form id="statusUpdateForm">
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Next Stage Status</label>
+                            <select class="form-select" id="newStatusSelect"></select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-semibold">Activity Notes</label>
+                            <textarea class="form-control small" id="statusNotes" rows="3" placeholder="e.g. Completed technical round..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-gradient btn-sm w-100 py-2">Update Status <i class="fa-solid fa-chevron-right ms-1"></i></button>
+                    </form>
+                </div>
+                
+                <div class="glass-card p-4 bg-success bg-opacity-10 border-success border-opacity-25 text-center text-success" id="completedCard" style="display:none;">
+                    <i class="fa-solid fa-circle-check display-4 mb-2"></i>
+                    <h5 class="fw-bold display-font">Internship Completed</h5>
+                    <p class="small mb-0">Visit the Certificate Module to upload and download your document.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-4 mt-auto">
+        <div class="container text-center text-secondary small">
+            &copy; 2026 Digital Internship Tracking System. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        const student = JSON.parse(localStorage.getItem('dits_current_student'));
+        if (!student) window.location.href = 'login.html';
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = parseInt(urlParams.get('id'));
+        
+        const internships = JSON.parse(localStorage.getItem('dits_internships') || '[]');
+        const target = internships.find(i => i.id === id && i.student_id === student.id);
+        
+        if (!target) {
+            window.location.href = 'dashboard.html';
+        }
+
+        document.getElementById('detailsCompany').textContent = target.company;
+        document.getElementById('detailsRole').textContent = target.role;
+        document.getElementById('detailsStatus').textContent = target.status;
+        document.getElementById('detailsStatus').className = `status-badge badge-${target.status.toLowerCase()} mb-2`;
+        document.getElementById('certLink').href = `upload-certificate.html?id=${id}`;
+
+        // Summary Specs
+        document.getElementById('specsTable').innerHTML = `
+            <tr><td class="text-muted ps-0 py-2">Duration:</td><td class="text-dark fw-bold text-end py-2">${target.duration}</td></tr>
+            <tr><td class="text-muted ps-0 py-2">Timeline:</td><td class="text-dark fw-bold text-end py-2">${target.start} to ${target.end}</td></tr>
+            <tr><td class="text-muted ps-0 py-2">Location:</td><td class="text-dark fw-bold text-end py-2">${target.location}</td></tr>
+            <tr><td class="text-muted ps-0 py-2">Stipend:</td><td class="text-dark fw-bold text-end py-2">${target.stipend}</td></tr>
+            <tr><td class="text-muted ps-0 py-2">Mentor Name:</td><td class="text-dark fw-bold text-end py-2">${target.mentor}</td></tr>
+        `;
+
+        // Render Steps
+        const stages = ['Applied', 'Shortlisted', 'Interview', 'Selected', 'Ongoing', 'Completed'];
+        const currentIdx = stages.indexOf(target.status);
+        const logs = JSON.parse(localStorage.getItem('dits_logs') || '[]').filter(l => l.internship_id === id);
+
+        document.getElementById('timelineSteps').innerHTML = stages.map((stage, idx) => {
+            let statusClass = '';
+            let logTime = '';
+            
+            const stageLog = logs.find(l => l.status === stage);
+            if (stageLog) logTime = stageLog.time;
+
+            if (idx < currentIdx) statusClass = 'completed';
+            else if (idx === currentIdx) statusClass = 'active';
+
+            return `
+                <div class="timeline-step ${statusClass}">
+                    <div class="timeline-step-icon">${statusClass === 'completed' ? '<i class="fa-solid fa-check"></i>' : idx + 1}</div>
+                    <div class="timeline-step-label">${stage}${logTime ? `<div class="timeline-step-date">${logTime}</div>` : ''}</div>
+                </div>`;
+        }).join('');
+
+        // Render Logs
+        document.getElementById('logsContainer').innerHTML = logs.slice().reverse().map(l => `
+            <div class="mb-4 position-relative">
+                <div class="position-absolute" style="left: -25px; top: 3px; width: 12px; height: 12px; border-radius: 50%; background: var(--primary-light); border: 2px solid #ffffff;"></div>
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="fw-bold text-dark">${l.status}</span>
+                    <small class="text-muted">${l.time}</small>
+                </div>
+                <p class="text-secondary small mb-0">${l.notes}</p>
+            </div>
+        `).join('');
+
+        // Show Forms conditionally
+        if (target.status === 'Completed') {
+            document.getElementById('completedCard').style.display = 'block';
+        } else {
+            document.getElementById('updateFormCard').style.display = 'block';
+            const select = document.getElementById('newStatusSelect');
+            select.innerHTML = stages.slice(currentIdx + 1).map(s => `<option value="${s}">${s}</option>`).join('');
+        }
+
+        // Form Submit
+        document.getElementById('statusUpdateForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const newStatus = document.getElementById('newStatusSelect').value;
+            const notes = document.getElementById('statusNotes').value.trim() || `Moved to ${newStatus}.`;
+            
+            const dbList = JSON.parse(localStorage.getItem('dits_internships') || '[]');
+            const allLogs = JSON.parse(localStorage.getItem('dits_logs') || '[]');
+            
+            // Update internship status
+            const idx = dbList.findIndex(i => i.id === id);
+            dbList[idx].status = newStatus;
+            
+            // Append log
+            allLogs.push({
+                internship_id: id,
+                status: newStatus,
+                notes: notes,
+                time: new Date().toISOString().split('T')[0]
+            });
+
+            localStorage.setItem('dits_internships', JSON.stringify(dbList));
+            localStorage.setItem('dits_logs', JSON.stringify(allLogs));
+            location.reload();
+        });
+    </script>
+</body>
+</html>

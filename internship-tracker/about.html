@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DITS - About</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="preloader" class="preloader"><div class="loader-spinner"></div></div>
+
+    <nav class="navbar navbar-expand-lg navbar-light glass-navbar sticky-top py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="index.html">
+                <i class="fa-solid fa-graduation-cap text-primary fs-3 me-2"></i>
+                <span class="fw-bold fs-4 text-dark display-font">DITS</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link px-3" href="index.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link px-3 active text-primary" href="about.html">About</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="contact.html">Contact Us</a></li>
+                    <li class="nav-item dropdown px-3">
+                        <a class="nav-link dropdown-toggle" href="#" id="loginSelector" data-bs-toggle="dropdown">Portals</a>
+                        <ul class="dropdown-menu border-0 shadow glass-card mt-2">
+                            <li><a class="dropdown-item py-2" href="login.html"><i class="fa-solid fa-user me-2 text-primary"></i> Student Portal</a></li>
+                            <li><a class="dropdown-item py-2" href="admin-login.html"><i class="fa-solid fa-user-tie me-2 text-primary"></i> Admin Portal</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item ms-lg-2"><a class="btn btn-gradient text-white btn-sm" href="register.html">Register Now</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="py-5">
+        <div class="container py-lg-4">
+            <div class="row g-5 align-items-center mb-5">
+                <div class="col-lg-6">
+                    <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-semibold mb-3">📖 About Platform</span>
+                    <h2 class="display-4 text-dark display-font mb-4">Digitizing Career Path Verification</h2>
+                    <p class="text-secondary mb-3">
+                        The <strong>Digital Internship Tracking System (DITS)</strong> is designed to replace paper-based log books and manual confirmation procedures. It allows educational institutes, departments, and students to coordinate internship opportunities under one unified platform.
+                    </p>
+                    <p class="text-secondary mb-4">
+                        Students can record their progress at every stage of the lifecycle, keep detailed records of mentor assignments, stipends, and roles, and upload final reports. Meanwhile, college administrators gain bird's-eye views of placements, approve certifications, and compile performance metrics.
+                    </p>
+                </div>
+                <div class="col-lg-6">
+                    <div class="glass-card p-5 bg-gradient-primary text-white position-relative" style="background: var(--gradient-primary); border: none;">
+                        <h3 class="display-font mb-3">Empowering Growth</h3>
+                        <p class="lead mb-4 opacity-75">
+                            "The best way to predict the future is to create it. We give students the structural tools to record, trace, and validate their professional stepping stones."
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Steps -->
+            <div class="mt-5">
+                <div class="text-center max-w-600 mx-auto mb-5">
+                    <h3 class="display-font text-dark h2">How DITS Works</h3>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="glass-card p-4 h-100">
+                            <div class="fs-5 fw-bold text-primary mb-3">01 / Profile</div>
+                            <h5 class="text-dark display-font mb-2">Create Student Account</h5>
+                            <p class="text-secondary small">Register with your academic credentials and contact numbers.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="glass-card p-4 h-100">
+                            <div class="fs-5 fw-bold text-cyan mb-3">02 / Setup</div>
+                            <h5 class="text-dark display-font mb-2">Add Internship Record</h5>
+                            <p class="text-secondary small">Enter organization details, role titles, mentor contacts, and duration.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="glass-card p-4 h-100">
+                            <div class="fs-5 fw-bold text-emerald mb-3">03 / Tracking</div>
+                            <h5 class="text-dark display-font mb-2">Update Stage Logs</h5>
+                            <p class="text-secondary small">Trace applications sequentially on a responsive timeline.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4 mt-auto">
+        <div class="container text-center text-secondary small">
+            &copy; 2026 Digital Internship Tracking System. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

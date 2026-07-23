@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DITS - Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="preloader" class="preloader"><div class="loader-spinner"></div></div>
+
+    <nav class="navbar navbar-expand-lg navbar-light glass-navbar sticky-top py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="dashboard.html">
+                <i class="fa-solid fa-graduation-cap text-primary fs-3 me-2"></i>
+                <span class="fw-bold fs-4 text-dark display-font">DITS</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link px-3" href="dashboard.html"><i class="fa-solid fa-chart-line me-1"></i> Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="add-internship.html"><i class="fa-solid fa-plus-circle me-1"></i> Add Internship</a></li>
+                    <li class="nav-item"><a class="nav-link px-3 active text-primary" href="profile.html"><i class="fa-solid fa-user-circle me-1"></i> Profile</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4 flex-grow-1">
+        <div id="alertBox"></div>
+
+        <div class="row g-4">
+            <div class="col-lg-7">
+                <div class="glass-card p-4 p-md-5 bg-white">
+                    <h2 class="display-font text-dark mb-4"><i class="fa-solid fa-id-card-clip text-primary me-2"></i>My Profile</h2>
+                    
+                    <form id="profileForm" class="needs-validation" novalidate>
+                        <div class="d-flex align-items-center gap-4 mb-4 pb-3 border-bottom border-light">
+                            <img src="assets/images/default-avatar.png" id="avatarImage" alt="Avatar" class="rounded-circle border" style="width: 80px; height:80px; object-fit:cover;">
+                            <div>
+                                <h4 class="fw-bold mb-1 text-dark" id="profileName">Student Name</h4>
+                                <p class="text-secondary small mb-0" id="profileEmail">Email</p>
+                            </div>
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="nameInput" class="form-label fw-semibold">Full Name</label>
+                                <input type="text" class="form-control" id="nameInput" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="rollInput" class="form-label fw-semibold">Roll Number</label>
+                                <input type="text" class="form-control bg-light text-muted" id="rollInput" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="phoneInput" class="form-label fw-semibold">Phone Number</label>
+                                <input type="text" class="form-control" id="phoneInput">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="deptInput" class="form-label fw-semibold">Department</label>
+                                <select class="form-select" id="deptInput" required>
+                                    <option value="Computer Applications">Computer Applications (MCA)</option>
+                                    <option value="Computer Science Engineering">B.Tech CSE</option>
+                                    <option value="Information Technology">B.Tech IT</option>
+                                </select>
+                            </div>
+                            <div class="col-12 mt-4">
+                                <button type="submit" class="btn btn-gradient w-100 py-3">Update Profile</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <div class="glass-card p-4 p-md-5 bg-white h-100 d-flex flex-column justify-content-between">
+                    <div>
+                        <h3 class="display-font text-dark mb-4">Placements Summary</h3>
+                        <div class="row g-3 mb-4 text-center">
+                            <div class="col-6"><div class="p-3 border rounded-3"><span class="small text-muted d-block">Total</span><h3 class="fw-bold mt-1 text-primary" id="sumTotal">0</h3></div></div>
+                            <div class="col-6"><div class="p-3 border rounded-3"><span class="small text-muted d-block">Ongoing</span><h3 class="fw-bold mt-1 text-cyan" id="sumOngoing">0</h3></div></div>
+                            <div class="col-6"><div class="p-3 border rounded-3"><span class="small text-muted d-block">Completed</span><h3 class="fw-bold mt-1 text-success" id="sumCompleted">0</h3></div></div>
+                            <div class="col-6"><div class="p-3 border rounded-3"><span class="small text-muted d-block">Pending Cert</span><h3 class="fw-bold mt-1 text-warning" id="sumCert">0</h3></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-4 mt-auto">
+        <div class="container text-center text-secondary small">
+            &copy; 2026 Digital Internship Tracking System. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        const student = JSON.parse(localStorage.getItem('dits_current_student'));
+        if (!student) window.location.href = 'login.html';
+
+        // Load details
+        document.getElementById('profileName').textContent = student.name;
+        document.getElementById('profileEmail').textContent = student.email;
+        document.getElementById('nameInput').value = student.name;
+        document.getElementById('rollInput').value = student.roll;
+        document.getElementById('phoneInput').value = student.phone || '';
+        document.getElementById('deptInput').value = student.dept;
+
+        // Load stats
+        const internships = JSON.parse(localStorage.getItem('dits_internships') || '[]').filter(i => i.student_id === student.id);
+        const ongoing = internships.filter(i => i.status === 'Ongoing').length;
+        const completed = internships.filter(i => i.status === 'Completed').length;
+        const cert = internships.filter(i => i.cert && i.cert_status === 'Pending').length;
+
+        document.getElementById('sumTotal').textContent = internships.length;
+        document.getElementById('sumOngoing').textContent = ongoing;
+        document.getElementById('sumCompleted').textContent = completed;
+        document.getElementById('sumCert').textContent = cert;
+
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (this.checkValidity()) {
+                const name = document.getElementById('nameInput').value.trim();
+                const phone = document.getElementById('phoneInput').value.trim();
+                const dept = document.getElementById('deptInput').value;
+
+                // Save
+                student.name = name;
+                student.phone = phone;
+                student.dept = dept;
+                
+                localStorage.setItem('dits_current_student', JSON.stringify(student));
+                
+                // Update in users array
+                const users = JSON.parse(localStorage.getItem('dits_users') || '[]');
+                const idx = users.findIndex(u => u.id === student.id);
+                users[idx] = student;
+                localStorage.setItem('dits_users', JSON.stringify(users));
+
+                document.getElementById('alertBox').innerHTML = `<div class="alert alert-success glass-card border-success border-opacity-25 p-3 mb-4">Profile updated successfully!</div>`;
+                setTimeout(() => location.reload(), 1000);
+            }
+        });
+    </script>
+</body>
+</html>

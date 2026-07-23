@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DITS - Student Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div id="preloader" class="preloader"><div class="loader-spinner"></div></div>
+
+    <!-- Transparent Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light glass-navbar sticky-top py-3">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="dashboard.html">
+                <i class="fa-solid fa-graduation-cap text-primary fs-3 me-2"></i>
+                <span class="fw-bold fs-4 text-dark display-font">DITS</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link px-3 active text-primary" href="dashboard.html"><i class="fa-solid fa-chart-line me-1"></i> Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="add-internship.html"><i class="fa-solid fa-plus-circle me-1"></i> Add Internship</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="profile.html"><i class="fa-solid fa-user-circle me-1"></i> Profile</a></li>
+                    
+                    <!-- Notifications Dropdown -->
+                    <li class="nav-item dropdown px-3">
+                        <a class="nav-link notification-bell" href="#" id="notifDropdown" data-bs-toggle="dropdown">
+                            <i class="fa-regular fa-bell fs-5"></i>
+                            <span class="notification-badge" id="notifBadge" style="display:none;">0</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end glass-card p-2 border-0 shadow mt-2" style="width: 300px; max-height: 400px; overflow-y: auto;" id="notifList">
+                            <div class="px-3 py-2 border-bottom d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">Notifications</span>
+                                <a href="#" id="clearNotifs" class="text-xs text-primary text-decoration-none">Clear all</a>
+                            </div>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><button class="btn btn-outline-danger btn-sm border-0" id="logoutBtn"><i class="fa-solid fa-sign-out-alt"></i> Logout</button></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        <!-- Welcome Card -->
+        <div class="glass-card p-4 p-md-5 mb-4 text-white" style="background: var(--gradient-primary); border: none;">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="display-5 fw-extrabold display-font" id="welcomeName">Welcome, Student!</h1>
+                    <p class="lead mb-0 opacity-75" id="welcomeDetails">Department Details</p>
+                </div>
+                <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                    <a href="add-internship.html" class="btn btn-light text-primary fw-bold py-2 px-4 rounded-3 shadow">
+                        <i class="fa-solid fa-plus-circle me-1"></i> Add Internship
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Widgets -->
+        <div class="row g-4 mb-4">
+            <div class="col-xl-3 col-sm-6">
+                <div class="widget-card widget-blue">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase small fw-bold opacity-75">Total Applications</h6>
+                            <h2 class="display-font fw-extrabold mb-0" id="statTotal">0</h2>
+                        </div>
+                        <div class="fs-1"><i class="fa-solid fa-folder-open"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6">
+                <div class="widget-card widget-cyan">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase small fw-bold opacity-75">Ongoing Internships</h6>
+                            <h2 class="display-font fw-extrabold mb-0" id="statOngoing">0</h2>
+                        </div>
+                        <div class="fs-1"><i class="fa-solid fa-spinner fa-spin-pulse"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6">
+                <div class="widget-card widget-green">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase small fw-bold opacity-75">Completed Internships</h6>
+                            <h2 class="display-font fw-extrabold mb-0" id="statCompleted">0</h2>
+                        </div>
+                        <div class="fs-1"><i class="fa-solid fa-award"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-sm-6">
+                <div class="widget-card widget-orange">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h6 class="text-uppercase small fw-bold opacity-75">Pending Certifications</h6>
+                            <h2 class="display-font fw-extrabold mb-0" id="statCert">0</h2>
+                        </div>
+                        <div class="fs-1"><i class="fa-solid fa-file-signature"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mb-4">
+            <!-- Chart.js -->
+            <div class="col-lg-6">
+                <div class="glass-card p-4 h-100 bg-white">
+                    <h4 class="display-font text-dark mb-4"><i class="fa-solid fa-chart-pie me-2 text-primary"></i>Status Distribution</h4>
+                    <div class="position-relative" style="height: 300px;">
+                        <canvas id="statusDoughnutChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="col-lg-6">
+                <div class="glass-card p-4 h-100 bg-white">
+                    <h4 class="display-font text-dark mb-4"><i class="fa-solid fa-history me-2 text-cyan"></i>Recent Activity Logs</h4>
+                    <div class="list-group list-group-flush" id="activityList"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- List -->
+        <div class="glass-card p-4 bg-white">
+            <div class="row align-items-center g-3 mb-4">
+                <div class="col-md-4"><h4 class="display-font text-dark mb-0">My Registered Internships</h4></div>
+                <div class="col-md-5">
+                    <input type="text" class="form-control bg-light border-0" id="searchInternship" placeholder="Search by company or role...">
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select bg-light border-0" id="filterStatus">
+                        <option value="">All Statuses</option>
+                        <option value="Applied">Applied</option>
+                        <option value="Shortlisted">Shortlisted</option>
+                        <option value="Interview">Interview</option>
+                        <option value="Selected">Selected</option>
+                        <option value="Ongoing">Ongoing</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table custom-table">
+                    <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th>Role</th>
+                            <th>Duration</th>
+                            <th>Mentor</th>
+                            <th>Stipend</th>
+                            <th>Status</th>
+                            <th>Certificate</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="internshipTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Authentication Guard
+        const student = JSON.parse(localStorage.getItem('dits_current_student'));
+        if (!student) {
+            window.location.href = 'login.html';
+        }
+
+        // Welcome Data
+        document.getElementById('welcomeName').textContent = `Welcome back, ${student.name}!`;
+        document.getElementById('welcomeDetails').textContent = `Department of ${student.dept} | Roll No: ${student.roll}`;
+
+        // Logout
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('dits_current_student');
+            window.location.href = 'index.html';
+        });
+
+        // Load metrics & data
+        const internships = JSON.parse(localStorage.getItem('dits_internships') || '[]').filter(i => i.student_id === student.id);
+        const stats = { applied: 0, shortlisted: 0, interview: 0, selected: 0, ongoing: 0, completed: 0, pending_cert: 0 };
+        
+        internships.forEach(i => {
+            const st = i.status.toLowerCase();
+            if (stats.hasOwnProperty(st)) stats[st]++;
+            else stats[st] = 1;
+            
+            if (i.cert && i.cert_status === 'Pending') {
+                stats.pending_cert++;
+            }
+        });
+
+        document.getElementById('statTotal').textContent = internships.length;
+        document.getElementById('statOngoing').textContent = stats.ongoing;
+        document.getElementById('statCompleted').textContent = stats.completed;
+        document.getElementById('statCert').textContent = stats.pending_cert;
+
+        // Render Table Rows
+        const tbody = document.getElementById('internshipTableBody');
+        if (internships.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="8" class="text-center py-4 text-muted">No internships registered.</td></tr>';
+        } else {
+            tbody.innerHTML = internships.map(i => `
+                <tr class="internship-row" data-status="${i.status}">
+                    <td>
+                        <span class="fw-bold text-dark company-name">${i.company}</span><br>
+                        <small class="text-muted"><i class="fa-solid fa-map-marker-alt me-1"></i>${i.location}</small>
+                    </td>
+                    <td>
+                        <span class="fw-semibold text-dark internship-role">${i.role}</span><br>
+                        <small class="text-muted">${i.start} to ${i.end}</small>
+                    </td>
+                    <td>${i.duration}</td>
+                    <td>${i.mentor}</td>
+                    <td>${i.stipend}</td>
+                    <td><span class="status-badge badge-${i.status.toLowerCase()}">${i.status}</span></td>
+                    <td>${i.cert ? `<span class="status-badge badge-${i.cert_status.toLowerCase()}">Cert: ${i.cert_status}</span>` : '<span class="text-muted small">Not Uploaded</span>'}</td>
+                    <td class="text-end">
+                        <div class="dropdown">
+                            <button class="btn btn-light btn-sm rounded-circle shadow-sm" data-bs-toggle="dropdown"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                            <ul class="dropdown-menu dropdown-menu-end border-0 shadow glass-card mt-2">
+                                <li><a class="dropdown-item py-2" href="progress.html?id=${i.id}"><i class="fa-solid fa-route me-2 text-primary"></i> Track Timeline</a></li>
+                                <li><a class="dropdown-item py-2" href="upload-certificate.html?id=${i.id}"><i class="fa-solid fa-file-arrow-up me-2 text-cyan"></i> Certificate Module</a></li>
+                                <li><a class="dropdown-item py-2" href="add-internship.html?edit_id=${i.id}"><i class="fa-solid fa-edit me-2 text-warning"></i> Edit Details</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Render Chart
+        initStatusChart('statusDoughnutChart', stats);
+
+        // Load notifications
+        const notifs = JSON.parse(localStorage.getItem('dits_notifications') || '[]').filter(n => n.student_id === student.id);
+        const unreadCount = notifs.filter(n => !n.read).length;
+        if (unreadCount > 0) {
+            document.getElementById('notifBadge').textContent = unreadCount;
+            document.getElementById('notifBadge').style.display = 'block';
+        }
+
+        document.getElementById('notifList').innerHTML += notifs.map(n => `
+            <li class="p-2 border-bottom-0 ${!n.read ? 'bg-light' : ''} rounded mb-1">
+                <div class="d-flex align-items-start px-2">
+                    <i class="fa-solid fa-info-circle text-primary mt-1 me-2"></i>
+                    <div>
+                        <p class="mb-0 text-sm" style="font-size: 0.85rem;">${n.message}</p>
+                    </div>
+                </div>
+            </li>
+        `).join('');
+
+        document.getElementById('clearNotifs').addEventListener('click', (e) => {
+            e.preventDefault();
+            const allNotifs = JSON.parse(localStorage.getItem('dits_notifications') || '[]');
+            allNotifs.forEach(n => { if (n.student_id === student.id) n.read = true; });
+            localStorage.setItem('dits_notifications', JSON.stringify(allNotifs));
+            document.getElementById('notifBadge').style.display = 'none';
+            location.reload();
+        });
+
+        // Load Activity logs
+        const logs = JSON.parse(localStorage.getItem('dits_logs') || '[]');
+        const activityList = document.getElementById('activityList');
+        const relevantLogs = logs.filter(l => internships.some(i => i.id === l.internship_id));
+        if (relevantLogs.length === 0) {
+            activityList.innerHTML = '<p class="text-muted text-center py-4">No activity logged.</p>';
+        } else {
+            activityList.innerHTML = relevantLogs.slice(-5).reverse().map(l => {
+                const internshipObj = internships.find(i => i.id === l.internship_id);
+                return `
+                    <div class="list-group-item px-0 py-3 border-bottom border-light">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="fw-bold text-dark mb-1">Status Update: ${internshipObj.company}</h6>
+                            <small class="text-muted">${l.time}</small>
+                        </div>
+                        <p class="text-secondary small mb-1">Role: ${internshipObj.role}</p>
+                        <div class="d-flex align-items-center">
+                            <span class="status-badge badge-${l.status.toLowerCase()} me-2">${l.status}</span>
+                            <span class="text-muted small">${l.notes}</span>
+                        </div>
+                    </div>`;
+            }).join('');
+        }
+    </script>
+</body>
+</html>
